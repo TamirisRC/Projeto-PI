@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <img src="#" style="width: 200px; height: auto; margin-top: 50px;">
+                </div>
+                <br>
+                <div class="login-form">
+                    <h2 class="text-center">Login</h2>
+                    <form method="POST" action="/log">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="pass" placeholder="Digite sua senha" autocomplete="off" />
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        </div>
+                        {{#if message}}
+                            <div class="text-center">
+                                <label style="font-weight: bold; color: red;">{{message}}</label>
+                            </div>
+                        {{/if}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

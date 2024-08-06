@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Dinâmico com Calendário</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container menu-container">
+        <div class="profile-info">
+            <img src="/public/profile.png" alt="Profile" class="rounded-profile-img" />
+            <P>{{user.nome}}</P>
+            <p>{{user.email}}</p>
+        </div>
+
+        {{#if showMenu}}
+
+                               <!--Botões do Coordenador-->
+        <div class="menu">
+            {{#if (eq userRole 'coordenador')}}
+                <div class="menu-item">
+                    <img src="#" alt="Dashboard" class="menu-icon" />
+                    <span>Dashboard</span>
+                </div>
+                   <div class="menu-item">
+                    <img src="#" alt="Contas" class="menu-icon" />
+                    <span>Contas</span>
+                </div>
+                <div class="menu-item">
+                    <img src="#" alt="Pré-Banca" class="menu-icon" />
+                    <span>Pré-Banca</span>
+                </div>
+                <div class="menu-item">
+                    <img src="#" alt="Banca Final" class="menu-icon" />
+                    <span>Banca Final</span>
+                </div>
+
+                                 <!--Botões do Aluno-->
+            {{else if (eq userRole 'aluno')}}
+                <div class="menu-item">
+                    <img src="#" alt="Plano Adaptativo" class="menu-icon" />
+                    <span>Plano Adaptativo</span>
+                </div>
+                <div class="menu-item">
+                    <img src="#" alt="Tarefas" class="menu-icon" />
+                    <span>Tarefas</span>
+                </div>
+                <div class="menu-item">
+                    <img src="/icon-chat" alt="Chat" class="menu-icon" />
+                    <span>Chat</span>
+                </div>
+                <div class="menu-item">
+                    <img src="/icon-grupo" alt="Grupo" class="menu-icon" />
+                    <span>Grupo</span>
+                </div>
+
+                  <!--Botões do Diretor-->
+            {{else if (eq userRole 'diretor')}}
+                    <div class="menu-item">
+                    <img src="#" alt="Dashboard" class="menu-icon" />
+                    <span>Dashboard</span>
+                </div>
+                        <!--Botões do Representante de TG-->
+            {{else if (eq userRole 'representante_tg')}}
+                <div class="menu-item">
+                 <img src="icon-plano.png" alt="Plano Adaptativo" class="menu-icon" />
+                 <span>
+                <a href="/plano-adaptativo/{{user.id}}" class="btn btn-primary">Plano Adaptativo</a>
+                </span>
+                </div>
+                <div class="menu-item">
+                    <img src="#" alt="Dashboard" class="menu-icon" />
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item">
+                    <img src="/icon-chat" alt="Chat" class="menu-icon" />
+                    <span>Chat</span>
+                </div>     
+                <div class="menu-item">
+                    <img src="#" alt="Conta dos alunos" class="menu-icon" />
+                    <span>Conta dos alunos</span>
+                </div>       
+
+                                <!--Botões do Orientador-->
+            {{else if (eq userRole 'orientador')}}
+                  <div class="menu-item">
+                    <img src="#" alt="Convite" class="menu-icon" />
+                    <span>Convite</span>
+                </div>
+                 <div class="menu-item">
+              <img src="icon-plano.png" alt="Plano Adaptativo" class="menu-icon" />
+              <span>
+                <a href="/plano-adaptativo/{{user.id}}" class="btn btn-primary">Plano Adaptativo</a>
+              </span>
+            </div>
+                <div class="menu-item">
+                    <img src="#" alt="Dashboard" class="menu-icon" />
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item">
+                    <img src="/icon-chat" alt="Chat" class="menu-icon" />
+                    <span>Chat</span>
+                </div>     
+                <div class="menu-item">
+                    <img src="#" alt="Conta dos alunos" class="menu-icon" />
+                    <span>Conta dos alunos</span>
+                </div>       
+                
+                     <!--Botão do ADMIN-->
+            {{else if (eq userRole 'admin')}}
+                  <div class="menu-item">
+              <img src="#" alt="Contas" class="menu-icon" />
+              <span>
+                <a href="/contas/{{user.id}}" class="btn btn-primary">Contas</a>
+              </span>
+            </div>
+
+                    <!--Botão do Representante-->
+            {{else if (eq userRole 'representante_po')}}
+                  <div class="menu-item">
+                    <img src="/icon-plano" alt="Plano Adaptativo" class="menu-icon" />
+                    <span>Plano Adaptativo</span>
+                </div>
+                <div class="menu-item">
+                    <img src="/icon-grupo" alt="Grupo" class="menu-icon" />
+                    <span>Grupo</span>
+                </div>
+                <div class="menu-item">
+                    <img src="/icon-chat" alt="Chat" class="menu-icon" />
+                    <span>Chat</span>
+                </div>
+                <div class="menu-item">
+                    <img src="#" alt="Convite" class="menu-icon" />
+                    <span>Convite</span>
+                </div>     
+                <div class="menu-item">
+                    <img src="#" alt="Conta dos alunos" class="menu-icon" />
+                    <span>Conta dos alunos</span>
+                </div>
+            {{/if}}
+        </div>
+        {{/if}}
+
+        <div class="current-date" id="currentDate"></div>
+        <div class="calendar" id="calendar">
+            <div class="month">
+                <h2></h2>
+            </div>
+            <div class="weekdays">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+            <div class="days" id="calendarDays"></div>
+        </div>
+        <div id="alertsContainer"></div>
+        <div id="eventsList"></div>
+    </div>
+    <!-- Modal para adicionar/editar eventos -->
+    <div
+      class="modal fade"
+      id="eventModal"
+      tabindex="-1"
+      aria-labelledby="eventModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel">
+              Adicionar/Editar Evento
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="eventForm">
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="eventDate">Data</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventDate"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col">
+                  <label for="eventName">Nome do Evento</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventName"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mr-2">
+                  Salvar
+                </button>
+                <button type="button" class="btn btn-danger" id="deleteEvent">
+                  Excluir
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentDateElement = document.getElementById('currentDate');
+            var currentDate = new Date();
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            };
+            currentDateElement.textContent = currentDate.toLocaleDateString(
+                'pt-BR',
+                options
+            );
+
+            var daysContainer = document.getElementById('calendarDays');
+            var eventsListElement = document.getElementById('eventsList');
+            var alertsContainer = document.getElementById('alertsContainer');
+
+            var events = {}; 
+
+            function getEventColor(eventDate) {
+                var eventDateTime = new Date(eventDate).getTime();
+                var currentDateTime = currentDate.getTime();
+                var timeDiff = eventDateTime - currentDateTime;
+                var dayDiff = timeDiff / (1000 * 3600 * 24);
+
+                if (dayDiff < 0) {
+                    return 'bg-danger'; 
+                } else if (dayDiff < 3) {
+                    return 'bg-warning';
+                } else {
+                    return 'bg-success';
+                }
+            }
+
+            function checkEventAlerts(eventDate) {
+                var eventDateTime = new Date(eventDate).getTime();
+                var currentDateTime = currentDate.getTime();
+                var timeDiff = eventDateTime - currentDateTime;
+                var dayDiff = timeDiff / (1000 * 3600 * 24);
+
+                if (dayDiff === -1) {
+                    showAlert('O evento "' + events[eventDate] + '" está atrasado!');
+                } else if (dayDiff === 1) {
+                    showAlert('O evento "' + events[eventDate] + '" é amanhã!');
+                }
+            }
+
+            function showAlert(message) {
+                var alertElement = document.createElement('div');
+                alertElement.classList.add('alert', 'alert-info', 'mt-2');
+                alertElement.textContent = message;
+                alertsContainer.appendChild(alertElement);
+                setTimeout(function () {
+                    alertElement.remove();
+                }, 5000); 
+            }
+
+            function createCalendar(year, month) {
+                var date = new Date(year, month - 1, 1);
+                var lastDay = new Date(year, month, 0).getDate();
+                var firstDayIndex = date.getDay();
+
+                var days = '';
+
+                for (var i = 0; i < firstDayIndex; i++) {
+                    days += '<div class="day"></div>';
+                }
+
+                for (var i = 1; i <= lastDay; i++) {
+                    var eventDate = year + '-' + month + '-' + i;
+                    var eventDay = events[eventDate];
+                    var dayClass = 'day';
+
+                    if (eventDay) {
+                        dayClass += ' event ' + getEventColor(eventDate);
+                        checkEventAlerts(eventDate);
+                    }
+
+                    days +=
+                        '<div class="' +
+                        dayClass +
+                        '" data-date="' +
+                        eventDate +
+                        '">' +
+                        i +
+                        '</div>';
+                }
+
+                daysContainer.innerHTML = days;
+
+                document.querySelectorAll('.day').forEach(function (day) {
+                    day.addEventListener('click', function () {
+                        var date = this.getAttribute('data-date');
+                        document.getElementById('eventDate').value = date;
+
+                        if (events[date]) {
+                            document.getElementById('eventName').value = events[date];
+                            document.getElementById('deleteEvent').style.display = 'block';
+                        } else {
+                            document.getElementById('eventName').value = '';
+                            document.getElementById('deleteEvent').style.display = 'none';
+                        }
+
+                        $('#eventModal').modal('show');
+                    });
+                });
+
+                updateEventsList();
+
+                var monthNames = [
+                    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+                ];
+                document.querySelector('.month h2').textContent = monthNames[month - 1] + ' ' + year;
+            }
+
+            function updateEventsList() {
+                var eventsListHtml = '';
+
+                for (var eventDate in events) {
+                    if (events.hasOwnProperty(eventDate)) {
+                        var eventName = events[eventDate];
+                        var eventColor = getEventColor(eventDate);
+                        eventsListHtml +=
+                            '<div class="event-item">' +
+                            '<div class="event-color-indicator ' +
+                            eventColor +
+                            '"></div>' +
+                            '<span class="event-date">' +
+                            new Date(eventDate).toLocaleDateString('pt-BR', options) +
+                            ':</span>' +
+                            '<span class="event-name">' +
+                            eventName +
+                            '</span>' +
+                            '</div>';
+                    }
+                }
+
+                eventsListElement.innerHTML = eventsListHtml;
+            }
+
+            document.getElementById('eventForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                var eventDate = document.getElementById('eventDate').value;
+                var eventName = document.getElementById('eventName').value;
+                events[eventDate] = eventName;
+                $('#eventModal').modal('hide');
+                createCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
+                showAlert('Evento "' + eventName + '" salvo com sucesso!');
+            });
+
+            document.getElementById('deleteEvent').addEventListener('click', function () {
+                var eventDate = document.getElementById('eventDate').value;
+                delete events[eventDate];
+                $('#eventModal').modal('hide');
+                createCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
+                showAlert('Evento excluído com sucesso!');
+            });
+
+            createCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
+        });
+    </script>
+</body>
+</html>
